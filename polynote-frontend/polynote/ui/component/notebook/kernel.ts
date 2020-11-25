@@ -16,7 +16,7 @@ import {
 import {
     KernelCommand,
     NotebookMessageDispatcher,
-    Reconnect, RemoveError, RemoveTask,
+    Reconnect, RemoveError, RemoveTask, RequestCancelTasks,
     ServerMessageDispatcher,
     ShowValueInspector
 } from "../../../messaging/dispatcher";
@@ -223,6 +223,7 @@ type KernelTask = TagElement<"div"> & {
 class KernelTasksEl {
     readonly el: TagElement<"div">;
     private taskContainer: TagElement<"div">;
+    private cancelButton: TagElement<"button">;
     private tasks: Record<string, KernelTask> = {};
     private serverErrorIds: Record<string, ServerError>;
     private kernelErrorIds: Record<string, ServerErrorWithCause>;
@@ -232,7 +233,11 @@ class KernelTasksEl {
                 private kernelTasksHandler: StateView<KernelTasks>,
                 private kernelErrors: StateView<ServerErrorWithCause[]>) {
         this.el = div(['kernel-tasks'], [
-            h3([], ['Tasks']),
+            h3([], [
+                'Tasks',
+                this.cancelButton = iconButton(["stop-cell"], "Cancel all tasks", "stop", "Cancel All")
+                    .click(_ => dispatcher.dispatch(new RequestCancelTasks()))
+            ]),
             this.taskContainer = div(['task-container'], [])
         ]);
 
@@ -371,6 +376,8 @@ class KernelTasksEl {
                 container.insertBefore(taskEl, before);
 
                 this.tasks[id] = taskEl;
+                this.el.classList.add("nonempty");
+                this.cancelButton.disabled = false;
             }
         }
     }
@@ -420,6 +427,10 @@ class KernelTasksEl {
         const task = this.tasks[id];
         if (task?.parentNode) task.parentNode.removeChild(task);
         delete this.tasks[id];
+        if (Object.keys(this.tasks).length === 0) {
+            this.el.classList.remove('nonempty');
+            this.cancelButton.disabled = true;
+        }
     }
 }
 
