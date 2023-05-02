@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+
 # package your code
-(cd..; sbt dist)
+(cd ..; sbt dist)
 
 # Build and push Docker images for Polynote.
 # set polynote specific variables
@@ -11,6 +12,9 @@ export SPARK_VERSION=3.3.1
 
 # Build and push Docker image with a commit and branch tag
 set -e
+
+GIT_BRANCH=test
+GIT_SHA=1234556
 
 if [ -z "$GIT_SHA" ]; then
     echo "Environment variable \$GIT_SHA expected to be set (by Butler)"
