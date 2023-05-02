@@ -1,0 +1,4 @@
+default:
+  tasks:
+    build:
+      - ./scripts/build.sh
