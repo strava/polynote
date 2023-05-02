@@ -25,7 +25,7 @@ RUN pip3 install -r /tmp/requirements.txt
 # for example (don't forget the dot at the end!):
 #   cd polynote-static; npm install; npm run dist; cd..
 #   sbt dist
-#   docker build -t polynote:dev -f docker/dev/Dockerfile .
+#   docker build -t polynote:dev -f docker/dev/Dockerfile
 COPY target/polynote-dist.tar.gz .
 RUN tar xfzp polynote-dist.tar.gz && \
     rm polynote-dist.tar.gz
