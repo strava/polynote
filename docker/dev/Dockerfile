@@ -35,6 +35,14 @@ RUN tar xfzp polynote-dist.tar.gz && \
 ENV UID 1000
 ENV NB_USER polly
 
+USER root
+
+RUN cp /polynote-kernel-assembly-0.5.1.jar /sculpt/jars/polynote-kernel-assembly.jar
+RUN cp /polynote-runtime-assembly-0.5.1.jar /sculpt/jars/polynote-runtime-assembly.jar
+RUN cp /polynote-server-assembly-0.5.1.jar /sculpt/jars/polynote-server-assembly.jar
+RUN cp /polynote-spark-assembly-0.5.1.jar /sculpt/jars/polynote-spark-assembly.jar
+RUN cp /polynote-spark-runtime-assembly-0.5.1.jar /sculpt/jars/polynote-spark-runtime-assembly.jar
+
 RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${UID} \
