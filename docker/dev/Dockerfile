@@ -37,11 +37,11 @@ ENV NB_USER polly
 
 USER root
 
-RUN cp /polynote/deps/2.12/polynote-kernel-assembly-0.5.1.jar /spark/jars/polynote-kernel-assembly.jar
-RUN cp /polynote/deps/2.12/polynote-runtime-assembly-0.5.1.jar /spark/jars/polynote-runtime-assembly.jar
-RUN cp /polynote/deps/2.12/polynote-server-assembly-0.5.1.jar /spark/jars/polynote-server-assembly.jar
-RUN cp /polynote/deps/2.12/polynote-spark-assembly-0.5.1.jar /spark/jars/polynote-spark-assembly.jar
-RUN cp /polynote/deps/2.12/polynote-spark-runtime-assembly-0.5.1.jar /spark/jars/polynote-spark-runtime-assembly.jar
+RUN cp ./polynote/deps/2.12/polynote-kernel-assembly-0.5.1.jar ./spark/jars/polynote-kernel-assembly.jar
+RUN cp ./polynote/deps/2.12/polynote-runtime-assembly-0.5.1.jar ./spark/jars/polynote-runtime-assembly.jar
+RUN cp ./polynote/deps/2.12/polynote-server-assembly-0.5.1.jar ./spark/jars/polynote-server-assembly.jar
+RUN cp ./polynote/deps/2.12/polynote-spark-assembly-0.5.1.jar ./spark/jars/polynote-spark-assembly.jar
+RUN cp ./polynote/deps/2.12/polynote-spark-runtime-assembly-0.5.1.jar ./spark/jars/polynote-spark-runtime-assembly.jar
 
 RUN adduser --disabled-password \
     --gecos "Default user" \
