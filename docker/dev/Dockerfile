@@ -31,6 +31,10 @@ COPY target/polynote-dist.tar.gz .
 RUN tar xfzp polynote-dist.tar.gz && \
     rm polynote-dist.tar.gz
 
+# Add hadoop and aws packages so we can connect to S3
+RUN wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.11.1026/aws-java-sdk-bundle-1.11.1026.jar -P ./spark/jars
+RUN wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.2/hadoop-aws-3.3.2.jar -P ./spark/jars
+
 # to wrap up, we create (safe)user
 ENV UID 1000
 ENV NB_USER polly
