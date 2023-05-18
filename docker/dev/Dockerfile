@@ -31,26 +31,13 @@ COPY target/polynote-dist.tar.gz .
 RUN tar xfzp polynote-dist.tar.gz && \
     rm polynote-dist.tar.gz
 
+# Add hadoop and aws packages so we can connect to S3
 RUN wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.11.1026/aws-java-sdk-bundle-1.11.1026.jar -P ./spark/jars
 RUN wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.2/hadoop-aws-3.3.2.jar -P ./spark/jars
 
 # to wrap up, we create (safe)user
 ENV UID 1000
 ENV NB_USER polly
-
-# USER root
-
-# RUN cp ./polynote/deps/2.12/polynote-kernel-assembly-0.5.1.jar ./spark/jars/polynote-kernel-assembly.jar
-# RUN cp ./polynote/deps/2.12/polynote-runtime-assembly-0.5.1.jar ./spark/jars/polynote-runtime-assembly.jar
-# RUN cp ./polynote/deps/2.12/polynote-server-assembly-0.5.1.jar ./spark/jars/polynote-server-assembly.jar
-# RUN cp ./polynote/deps/2.12/polynote-spark-assembly-0.5.1.jar ./spark/jars/polynote-spark-assembly.jar
-# RUN cp ./polynote/deps/2.12/polynote-spark-runtime-assembly-0.5.1.jar ./spark/jars/polynote-spark-runtime-assembly.jar
-# RUN cp ./polynote/deps/2.12/scala-compiler-2.12.12.jar ./spark/jars/scala-compiler.jar
-# RUN cp ./polynote/deps/2.12/scala-library-2.12.12.jar ./spark/jars/scala-library.jar
-# RUN cp ./polynote/deps/2.12/scala-reflect-2.12.12.jar ./spark/jars/scala-reflect.jar
-# RUN rm ./spark/jars/scala-compiler-2.12.15.jar
-# RUN rm ./spark/jars/scala-library-2.12.15.jar
-# RUN rm ./spark/jars/scala-reflect-2.12.15.jar
 
 RUN adduser --disabled-password \
     --gecos "Default user" \
